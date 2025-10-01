@@ -25,5 +25,6 @@ public class Helper {
         char c = s.toCharArray()[0];
         return c - 'A';
     }
+    
 
 }
