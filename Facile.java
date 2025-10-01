@@ -35,10 +35,10 @@ public class Facile {
     static void interpret(ArrayList<String> lines, Variable[] variables, int startline){
         for(int i = startline; i < lines.size(); i++){
 
+            if(!lines.getLast().equals(".")) Helper.error();
             if(lines.get(i).toUpperCase() != lines.get(i)) Helper.error();
 
             String[] args = lines.get(i).split(" +");
-            
             if(args.length == 0) Helper.error();
             
             Variable v1;
