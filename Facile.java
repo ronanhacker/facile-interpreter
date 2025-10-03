@@ -56,10 +56,7 @@ public class Facile {
                         Helper.error();
                     }
                     v1 = variables[Helper.getLetter(args[1])];
-                    if (v1.getType() == Helper.Type.STRING) {
-                        System.out.println(v1.getString());
-                    }
-                    else if (v1.getType() == Helper.Type.INT) {
+                    if (v1.getType() == Helper.Type.INT) {
                         System.out.println(v1.getInt());
                     }
                     else if (v1.getType() == Helper.Type.UNINITIALIZED) {

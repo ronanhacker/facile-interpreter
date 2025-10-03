@@ -1,7 +1,6 @@
 public class Helper {
     
     public static enum Type{
-        STRING,
         INT,
         UNINITIALIZED
     }

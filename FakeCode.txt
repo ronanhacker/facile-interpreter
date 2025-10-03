@@ -8,3 +8,4 @@ PRINT B
 END
 PRINT A
 END
+.
