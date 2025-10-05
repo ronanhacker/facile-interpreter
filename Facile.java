@@ -1,3 +1,20 @@
+/*
+Group:
+Target audience:
+
+What unique needs did your group identify in your audience?
+
+
+
+
+What choices did you make while writing your error messages to meet these needs?
+
+
+
+
+Pick three error messages and add an in-line comment next to each one justifying the way you wrote it.
+*/
+
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
