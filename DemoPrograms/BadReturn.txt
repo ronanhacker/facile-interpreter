@@ -1,0 +1,8 @@
+PRINT 5
+LET A 3 
+LET B 7
+LET C 4
+IF B = C THEN 6
+RETURN
+END
+.
