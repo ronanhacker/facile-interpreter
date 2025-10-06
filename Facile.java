@@ -32,20 +32,19 @@ public class Facile {
             }
 
             File input = new File(args[0]);
-            ArrayList<String> code = new ArrayList<>();
-
+        
             try(Scanner s = new Scanner(input)){
-
+                
+                ArrayList<String> code = new ArrayList<>();
                 while(s.hasNextLine()){
                     code.add(s.nextLine());
                 }
                 
                 interpret(code, variables, 0);
-                Helper.error();
 
+                Helper.error();
             } catch(FileNotFoundException e){
-                System.out.println(e);
-                System.exit(-1);
+                Helper.error();
             }
         }
         
@@ -55,7 +54,7 @@ public class Facile {
             if(!lines.getLast().equals(".")) Helper.error();
             if(lines.get(i).toUpperCase() != lines.get(i)) Helper.error();
 
-            String[] args = lines.get(i).split(" +");
+            String[] args = lines.get(i).split(" ");
             if(args.length == 0) Helper.error();
             
             Variable v1;
@@ -63,15 +62,13 @@ public class Facile {
             
             switch(args[0]){
                 case "LET":
-                    if (args.length != 3) {
-                        Helper.error();
-                    }
+                    if (args.length != 3) Helper.error();
+                    
                     variables[Helper.getLetter(args[1])].set(args[2]);
                     break;
                 case "PRINT":
-                    if (args.length != 2) {
-                        Helper.error();
-                    }
+                    if (args.length != 2) Helper.error();
+            
                     v1 = variables[Helper.getLetter(args[1])];
                     if (v1.getType() == Helper.Type.INT) {
                         System.out.println(v1.getInt());
@@ -81,9 +78,7 @@ public class Facile {
                     }
                     break;
                 case "ADD":
-                    if (args.length != 3) {
-                        Helper.error();
-                    }
+                    if (args.length != 3) Helper.error();
 
                     v1 = variables[Helper.getLetter(args[1])];
                     
@@ -94,12 +89,11 @@ public class Facile {
                         v2 = variables[Helper.getLetter(args[2])];
                         v1.set(Integer.toString(v1.getInt() + v2.getInt()));
                     }
+
                     break;
                 case "SUB":
-                    if (args.length != 3) {
-                        Helper.error();
-                    }
-
+                    if (args.length != 3) Helper.error();
+                    
                     v1 = variables[Helper.getLetter(args[1])];
                     
                     if(Helper.stringIsInt(args[2])){
@@ -108,16 +102,11 @@ public class Facile {
                     else{
                         v2 = variables[Helper.getLetter(args[2])];
                         v1.set(Integer.toString(v1.getInt() + v2.getInt()));
-                    }
-                    if (args.length != 3) {
-                        Helper.error();
                     }
                 
                     break;
                 case "MULT":
-                    if (args.length != 3) {
-                        Helper.error();
-                    }
+                    if (args.length != 3) Helper.error();
 
                     v1 = variables[Helper.getLetter(args[1])];
                     
@@ -128,14 +117,10 @@ public class Facile {
                         v2 = variables[Helper.getLetter(args[2])];
                         v1.set(Integer.toString(v1.getInt() * v2.getInt()));
                     }
-                    if (args.length != 3) {
-                        Helper.error();
-                    }
+
                     break;
                 case "DIV":
-                    if (args.length != 3) {
-                        Helper.error();
-                    }
+                    if (args.length != 3) Helper.error();
 
                     v1 = variables[Helper.getLetter(args[1])];
                     
@@ -146,17 +131,17 @@ public class Facile {
                         v2 = variables[Helper.getLetter(args[2])];
                         v1.set(Integer.toString(v1.getInt() / v2.getInt()));
                     }
-                    if (args.length != 3) {
-                        Helper.error();
-                    }
+
                     break;
                 case "GOTO":
                     if(args.length != 2) Helper.error();
+
                     if(Integer.parseInt(args[1]) -1 < 0 || Integer.parseInt(args[1]) >= lines.size()) Helper.error();
+
                     i = Integer.parseInt(args[1]);
+
                     break;
                 case "IF":
-
                     if(args.length != 6) Helper.error();
                     
                     if(!args[4].equals("THEN")) Helper.error();
@@ -212,8 +197,10 @@ public class Facile {
                     break;
                 case "GOSUB":
                     if(args.length != 2) Helper.error();
+
                     if(Integer.parseInt(args[1]) -1 < 0 || Integer.parseInt(args[1]) >= lines.size()) Helper.error();
                     interpret(lines, variables, Integer.parseInt(args[1]) -1);
+                    
                     break;
                 case "RETURN":
                     return;
