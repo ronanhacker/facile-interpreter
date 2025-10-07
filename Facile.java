@@ -97,11 +97,11 @@ public class Facile {
                     v1 = variables[Helper.getLetter(args[1])];
                     
                     if(Helper.stringIsInt(args[2])){
-                        v1.set(Integer.toString(v1.getInt() + Integer.parseInt(args[2])));
+                        v1.set(Integer.toString(v1.getInt() - Integer.parseInt(args[2])));
                     }
                     else{
                         v2 = variables[Helper.getLetter(args[2])];
-                        v1.set(Integer.toString(v1.getInt() + v2.getInt()));
+                        v1.set(Integer.toString(v1.getInt() - v2.getInt()));
                     }
                 
                     break;
