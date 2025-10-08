@@ -41,7 +41,7 @@ public class Facile {
                     code.add(s.nextLine());
                 }
                 
-                interpret(code, variables, 0);
+                interpret(code, variables, 0, 0);
 
                 Helper.error();
             } catch(FileNotFoundException e){
@@ -49,8 +49,11 @@ public class Facile {
             }
         }
         
-    static void interpret(ArrayList<String> lines, Variable[] variables, int startline){
+    static void interpret(ArrayList<String> lines, Variable[] variables, int startline, int linesrun){
         for(int i = startline; i < lines.size(); i++){
+
+            linesrun += 1;
+            if(lines.size() * 100 < linesrun) Helper.error();
 
             if(!lines.getLast().equals(".")) Helper.error();
             if(lines.get(i).toUpperCase() != lines.get(i)) Helper.error();
@@ -198,7 +201,7 @@ public class Facile {
                     if(args.length != 2) Helper.error();
 
                     if(Integer.parseInt(args[1]) -1 < 0 || Integer.parseInt(args[1]) >= lines.size()) Helper.error();
-                    interpret(lines, variables, Integer.parseInt(args[1]) -1);
+                    interpret(lines, variables, Integer.parseInt(args[1]) -1, linesrun);
                     
                     break;
                 case "RETURN":
