@@ -54,7 +54,6 @@ public class Facile {
 
             if(!lines.getLast().equals(".")) Helper.error();
             if(lines.get(i).toUpperCase() != lines.get(i)) Helper.error();
-
             String[] args = lines.get(i).split(" ");
             if(args.length == 0) Helper.error();
             
