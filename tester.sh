@@ -3,8 +3,10 @@ do
     javac "$filename"
 done
 
-for file in DemoPrograms/*
+for i in $(seq 1 16);
 do
-    echo "$file"
-    java facile.java "$file"
+    echo "=== ${bold}Test $i${normal} ==="
+    echo ""
+    java facile.java "Tests/Test$i.txt"
+    echo ""
 done
