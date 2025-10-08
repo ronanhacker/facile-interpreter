@@ -1,4 +1,10 @@
-for file in /DemoPrograms/*
+for filename in ./*.java
 do
-    cmd "java facile.java $file"
+    javac "$filename"
+done
+
+for file in DemoPrograms/*
+do
+    echo "$file"
+    java facile.java "$file"
 done
