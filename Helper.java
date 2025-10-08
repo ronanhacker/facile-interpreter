@@ -22,6 +22,9 @@ public class Helper {
     public static int getLetter(String s) {
         if(s.length() != 1 ) Helper.error();
         char c = s.toCharArray()[0];
+        if (((c - 'A') < 0) || ((c - 'A') > 25)) {
+            error();
+        }
         return c - 'A';
     }
     
