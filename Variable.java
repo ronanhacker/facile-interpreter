@@ -4,7 +4,7 @@ public class Variable{
     Helper.Type type;
 
     public Variable() {
-    type = Helper.Type.UNINITIALIZED;
+        type = Helper.Type.UNINITIALIZED;
     }
     
     public Helper.Type getType(){

@@ -1,3 +1,9 @@
+import java.io.File;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /*
 Group:
 Target audience:
@@ -15,11 +21,6 @@ What choices did you make while writing your error messages to meet these needs?
 Pick three error messages and add an in-line comment next to each one justifying the way you wrote it.
 */
 
-import java.io.File;
-import java.util.Scanner;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Facile {
     
@@ -59,7 +60,6 @@ public class Facile {
             
             Variable v1;
             Variable v2;
-            
             switch(args[0]){
                 case "LET":
                     if (args.length != 3) Helper.error();
@@ -138,7 +138,7 @@ public class Facile {
 
                     if(Integer.parseInt(args[1]) -1 < 0 || Integer.parseInt(args[1]) >= lines.size()) Helper.error();
 
-                    i = Integer.parseInt(args[1]);
+                    i = Integer.parseInt(args[1]) - 2;
 
                     break;
                 case "IF":
