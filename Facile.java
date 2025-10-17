@@ -192,7 +192,9 @@ public class Facile {
                             output = v1.getInt() >= v2.getInt();
                         break;
                         default:
-                            Helper.error();
+                            Helper.error(); // this is a necessary part of a switch statement, but the structure
+                            // of this interpreter is such that it shouldn't ever be hit. you can leave this blank
+                            // or copy your other invalid operator error.
                         break;
                     }
                     if(output) i = toJump -2;
