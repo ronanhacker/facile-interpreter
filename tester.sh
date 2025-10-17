@@ -3,7 +3,7 @@ do
     javac "$filename"
 done
 
-for i in $(seq 1 16);
+for i in $(seq 1 17);
 do
     echo "=== ${bold}Test $i${normal} ==="
     echo ""
