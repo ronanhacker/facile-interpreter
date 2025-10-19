@@ -10,7 +10,6 @@ errors still to catch:
 import sys
 import Helper
 import Variables
-from string import ascii_uppercase as alphabet
 
 operators = ["=", "<>", "<", ">", "<=", ">="]
 
@@ -96,9 +95,13 @@ def interpret(lines, starting_line = 1):
                 if len(current_line) != 2:
                     Helper.error()
                 try:
-                    line_number = int(current_line[1]) - 1
+                    new_line_number = int(current_line[1]) - 1
+                    if new_line_number >= len(code):
+                        Helper.error()
+                    line_number = new_line_number
                 except ValueError:
                     Helper.error()
                 break
-
-                
+            case "IF":
+                if len(current_line) != 6:
+                    Helper.error()
