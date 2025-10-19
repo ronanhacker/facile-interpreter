@@ -4,18 +4,15 @@ errors still to catch:
 - file not found
 - lowercase letters
 - right now whitespace doesn't throw an error (it should)
+- goto'ing to a line past end of code
 """
 
 import sys
 import Helper
-from Variables import Variable
+import Variables
 from string import ascii_uppercase as alphabet
 
 operators = ["=", "<>", "<", ">", "<=", ">="]
-variable_dict = {}
-for letter in alphabet:
-    variable_dict.update({letter: Variable(letter)})
-
 
 filename = sys.argv[1]
 code = [""]
@@ -31,65 +28,77 @@ def interpret(lines, starting_line = 1):
             case "LET":
                 if len(current_line) != 3:
                     Helper.error()
-                variable_dict[current_line[1]] = current_line[2]
+                Variables.set_value(current_line[1], current_line[2])
                 break
             case "PRINT":
                 if len(current_line) != 2:
                     Helper.error()
                 try:
-                    print(f"{variable_dict[current_line[1]]}")
+                    print(f"{Variables.get_value(current_line[1])}")
                 except KeyError:
                     Helper.error()
+                break
             case "ADD":
                 if len(current_line) != 3:
                     Helper.error()
                 try:
-                    value_one = variable_dict[current_line[1]].get_value()
+                    value_one = Variables.get_value(current_line[1])
                     if Helper.str_is_int(current_line[2]):
                         value_two = int(current_line[2])
-                        variable_dict[current_line[1]].set_value(value_one + value_two)
                     else:
-                        value_two = variable_dict[current_line[2]].get_value()
-                        variable_dict[current_line[1]].set_value(value_one + value_two)
+                        value_two = Variables.get_value(current_line[2])
+                    Variables.set_value(current_line[1], (value_one + value_two))
                 except KeyError:
-                    Helper.error()   
+                    Helper.error()
+                break
             case "SUB":
                 if len(current_line) != 3:
                     Helper.error()
                 try:
-                    value_one = variable_dict[current_line[1]].get_value()
+                    value_one = Variables.get_value(current_line[1])
                     if Helper.str_is_int(current_line[2]):
                         value_two = int(current_line[2])
-                        variable_dict[current_line[1]].set_value(value_one - value_two)
                     else:
-                        value_two = variable_dict[current_line[2]].get_value()
-                        variable_dict[current_line[1]].set_value(value_one - value_two)
+                        value_two = Variables.get_value(current_line[2])
+                    Variables.set_value(current_line[1], (value_one - value_two))
                 except KeyError:
                     Helper.error()
+                break
             case "MULT":
                 if len(current_line) != 3:
                     Helper.error()
                 try:
-                    value_one = variable_dict[current_line[1]].get_value()
+                    value_one = Variables.get_value(current_line[1])
                     if Helper.str_is_int(current_line[2]):
                         value_two = int(current_line[2])
-                        variable_dict[current_line[1]].set_value(value_one * value_two)
                     else:
-                        value_two = variable_dict[current_line[2]].get_value()
-                        variable_dict[current_line[1]].set_value(value_one * value_two)
+                        value_two = Variables.get_value(current_line[2])
+                    Variables.set_value(current_line[1], (value_one * value_two))
                 except KeyError:
                     Helper.error()
+                break
             case "DIV":
                 if len(current_line) != 3:
                     Helper.error()
                 try:
-                    value_one = variable_dict[current_line[1]].get_value()
+                    value_one = Variables.get_value(current_line[1])
                     if Helper.str_is_int(current_line[2]):
                         value_two = int(current_line[2])
                     else:
-                        value_two = variable_dict[current_line[2]].get_value()
+                        value_two = Variables.get_value(current_line[2])
                     if value_two == 0:
                         Helper.error()
-                    variable_dict[current_line[1]].set_value(value_one // value_two)
+                    Variables.set_value(current_line[1], (value_one // value_two))
                 except KeyError:
                     Helper.error()
+                break
+            case "GOTO":
+                if len(current_line) != 2:
+                    Helper.error()
+                try:
+                    line_number = int(current_line[1]) - 1
+                except ValueError:
+                    Helper.error()
+                break
+
+                

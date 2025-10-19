@@ -1,24 +1,20 @@
 import Helper
+from string import ascii_uppercase as alphabet
 
-class Variable:
-    def __init__(self, name):
-        self.name = name
-        self.value = None
+variable_dict = {}
+for letter in alphabet:
+    variable_dict.update({letter: None})
 
-    def __str__(self):
-        if self.value == None:
-            Helper.error()
-        return f"{self.value}"
-    
-    def set_value(self, value):
-        try:
-            int_value = int(value)
-            self.value = int_value
-        except ValueError:
-            Helper.error()
-        
-    def get_value(self):
-        if self.value == None:
-            Helper.error()
-        return self.value
-    
+def get_value(variable):
+    if variable_dict[variable] == None:
+        Helper.error()
+    return variable_dict[variable]
+
+def set_value(variable, value):
+    if variable not in alphabet:
+        Helper.error()
+    try:
+        int_value = int(value)
+        variable_dict[variable] = int_value
+    except ValueError:
+        Helper.error()
