@@ -1,11 +1,11 @@
 """
 errors still to catch:
-- no input in terminal
-- file not found
 - lowercase letters
 - right now whitespace doesn't throw an error (it should)
 - goto'ing to a line past end of code
 - referencing a variable not a-z
+- no return in gosub, extra return out of gosub
+- no period at end
 """
 
 import sys
@@ -25,10 +25,7 @@ def interpret(lines, starting_line = 1):
             case "PRINT":
                 if len(current_line) != 2:
                     Helper.error()
-                try:
-                    print(f"{Variables.get_value(current_line[1])}")
-                except KeyError:
-                    Helper.error()
+                print(f"{Variables.get_value(current_line[1])}")
 
             case "ADD":
                 if len(current_line) != 3:
@@ -139,7 +136,7 @@ def interpret(lines, starting_line = 1):
                 if not Helper.str_is_int(current_line[1]):
                     Helper.error()
                 
-                new_line_number = int(current_line[1]) - 1
+                new_line_number = int(current_line[1])
                 if (new_line_number >= len(code) or new_line_number < 1):
                     Helper.error()
 
