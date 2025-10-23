@@ -5,11 +5,30 @@ errors still to catch:
 - infinite recursion with GOSUB
 """
 
+"""
+Group:
+Target audience:
+
+What unique needs did your group identify in your audience?
+
+
+
+
+What choices did you make while writing your error messages to meet these needs?
+
+
+
+
+Pick three error messages and add an in-line comment next to each one justifying the way you wrote it.
+"""
+
 import sys
 import Helper
 import Variables
 
 def interpret(lines, starting_line = 1, stack = 0):
+    if stack > 10:     # preventing infinitely recursive GOSUB calls
+        Helper.error()
     if lines[-1] != ["."]:
         Helper.error()
     line_number = starting_line

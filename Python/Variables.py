@@ -14,7 +14,6 @@ def set_value(variable, value):
     if variable not in alphabet:
         Helper.error()
     try:
-        int_value = int(value)
-        variable_dict[variable] = int_value
+        variable_dict[variable] = int(value)
     except ValueError:
         Helper.error()
