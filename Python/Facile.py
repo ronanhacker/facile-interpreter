@@ -1,6 +1,8 @@
 """
 errors still to catch:
 - right now whitespace doesn't throw an error (it should)
+- infinite loops with GOTO
+- infinite recursion with GOSUB
 """
 
 import sys
