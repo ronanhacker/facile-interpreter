@@ -1,7 +1,6 @@
 """
 errors still to catch:
 - right now whitespace doesn't throw an error (it should)
-- no return in gosub, extra return out of gosub
 """
 
 import sys
@@ -72,11 +71,11 @@ def interpret(lines, starting_line = 1, stack = 0):
                     Helper.error()
                 if not Helper.str_is_int(current_line[5]):
                     Helper.error()
-                if (current_line[5] >= len(code) or current_line[5] < 1):
+                if (int(current_line[5]) >= len(code) or int(current_line[5]) < 1):
                     Helper.error()
                 
-                conditional_one = Helper.get_arg_value[current_line[1]]
-                conditional_two = Helper.get_arg_value[current_line[3]]
+                conditional_one = Helper.get_arg_value(current_line[1])
+                conditional_two = Helper.get_arg_value(current_line[3])
                 
                 match current_line[2]:
                     case "=":
@@ -95,7 +94,7 @@ def interpret(lines, starting_line = 1, stack = 0):
                         Helper.error()
                 
                 if conditional == True:
-                    line_number = int(current_line[5])
+                    line_number = int(current_line[5]) - 1
                 
             case "GOSUB":
                 if len(current_line) != 2:
