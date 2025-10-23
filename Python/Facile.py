@@ -26,6 +26,19 @@ import sys
 import Helper
 import Variables
 
+def get_code():
+    try:
+        filename = sys.argv[1]
+        code = [""]
+        with open(filename) as file:
+            for line in file:
+                code.append(line.split())
+        return code
+    except IndexError:
+        Helper.error()
+    except FileNotFoundError:
+        Helper.error()
+
 def interpret(lines, starting_line = 1, stack = 0):
     if stack > 10:     # preventing infinitely recursive GOSUB calls
         Helper.error()
@@ -114,7 +127,7 @@ def interpret(lines, starting_line = 1, stack = 0):
                     case _:
                         Helper.error()
                 
-                if conditional == True:
+                if conditional:
                     line_number = int(current_line[5]) - 1
                 
             case "GOSUB":
@@ -148,15 +161,5 @@ def interpret(lines, starting_line = 1, stack = 0):
         line_number += 1
 
 
-try:
-    filename = sys.argv[1]
-    code = [""]
-    with open(filename) as file:
-        for line in file:
-            code.append(line.split())
-except IndexError:
-    Helper.error()
-except FileNotFoundError:
-    Helper.error()
-
+code = get_code()
 interpret(code)
