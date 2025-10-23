@@ -1,9 +1,10 @@
 def error():
     print("ERROR.")
-    SystemExit
+    exit()
 
 def str_is_int(string):
     try:
-        return int(string)
+        new = int(string)
+        return True
     except ValueError:
         return False

@@ -1,0 +1,6 @@
+LET A 3
+GOTO 3
+LET A 1
+PRINT A
+END
+.
