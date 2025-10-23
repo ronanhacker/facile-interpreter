@@ -1,12 +1,12 @@
 import Helper
 from string import ascii_uppercase as alphabet
 
-variable_dict = {}
-for letter in alphabet:
-    variable_dict.update({letter: False})
+variable_dict = {letter: None for letter in alphabet}
 
 def get_value(variable):
-    if variable_dict[variable] == False:
+    if variable not in variable_dict:
+        Helper.error()
+    if variable_dict[variable] == None:
         Helper.error()
     return variable_dict[variable]
 

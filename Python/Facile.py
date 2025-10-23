@@ -1,20 +1,18 @@
 """
 errors still to catch:
-- lowercase letters
 - right now whitespace doesn't throw an error (it should)
-- goto'ing to a line past end of code
-- referencing a variable not a-z
 - no return in gosub, extra return out of gosub
-- no period at end
 """
 
 import sys
 import Helper
 import Variables
 
-def interpret(lines, starting_line = 1):
+def interpret(lines, starting_line = 1, stack = 0):
+    if lines[-1] != ["."]:
+        Helper.error()
     line_number = starting_line
-    while line_number <= len(lines):
+    while line_number < len(lines):
         current_line = lines[line_number]
         match current_line[0]:
             case "LET":
@@ -30,56 +28,32 @@ def interpret(lines, starting_line = 1):
             case "ADD":
                 if len(current_line) != 3:
                     Helper.error()
-                try:
-                    value_one = Variables.get_value(current_line[1])
-                    if Helper.str_is_int(current_line[2]):
-                        value_two = int(current_line[2])
-                    else:
-                        value_two = Variables.get_value(current_line[2])
-                    Variables.set_value(current_line[1], (value_one + value_two))
-                except KeyError:
-                    Helper.error()
+                value_one = Variables.get_value(current_line[1])
+                value_two = Helper.get_arg_value(current_line[2])
+                Variables.set_value(current_line[1], (value_one + value_two))
 
             case "SUB":
                 if len(current_line) != 3:
                     Helper.error()
-                try:
-                    value_one = Variables.get_value(current_line[1])
-                    if Helper.str_is_int(current_line[2]):
-                        value_two = int(current_line[2])
-                    else:
-                        value_two = Variables.get_value(current_line[2])
-                    Variables.set_value(current_line[1], (value_one - value_two))
-                except KeyError:
-                    Helper.error()
+                value_one = Variables.get_value(current_line[1])
+                value_two = Helper.get_arg_value(current_line[2])
+                Variables.set_value(current_line[1], (value_one - value_two))
 
             case "MULT":
                 if len(current_line) != 3:
                     Helper.error()
-                try:
-                    value_one = Variables.get_value(current_line[1])
-                    if Helper.str_is_int(current_line[2]):
-                        value_two = int(current_line[2])
-                    else:
-                        value_two = Variables.get_value(current_line[2])
-                    Variables.set_value(current_line[1], (value_one * value_two))
-                except KeyError:
-                    Helper.error()
+                value_one = Variables.get_value(current_line[1])
+                value_two = Helper.get_arg_value(current_line[2])
+                Variables.set_value(current_line[1], (value_one * value_two))
 
             case "DIV":
                 if len(current_line) != 3:
                     Helper.error()
-                try:
-                    value_one = Variables.get_value(current_line[1])
-                    if Helper.str_is_int(current_line[2]):
-                        value_two = int(current_line[2])
-                    else:
-                        value_two = Variables.get_value(current_line[2])
-                    if value_two == 0:
-                        Helper.error()
-                    Variables.set_value(current_line[1], (value_one // value_two))
-                except KeyError:
+                value_one = Variables.get_value(current_line[1])
+                value_two = Helper.get_arg_value(current_line[2])
+                if value_two == 0:
                     Helper.error()
+                Variables.set_value(current_line[1], (value_one // value_two))
 
             case "GOTO":
                 if len(current_line) != 2:
@@ -101,15 +75,8 @@ def interpret(lines, starting_line = 1):
                 if (current_line[5] >= len(code) or current_line[5] < 1):
                     Helper.error()
                 
-                if Helper.str_is_int(current_line[1]):
-                    conditional_one = str(current_line[1])
-                else:
-                    conditional_one = Variables.get_value[current_line[1]]
-                
-                if Helper.str_is_int(current_line[3]):
-                    conditional_two = str(current_line[3])
-                else:
-                    conditional_two = Variables.get_value[current_line[3]]
+                conditional_one = Helper.get_arg_value[current_line[1]]
+                conditional_two = Helper.get_arg_value[current_line[3]]
                 
                 match current_line[2]:
                     case "=":
@@ -128,7 +95,7 @@ def interpret(lines, starting_line = 1):
                         Helper.error()
                 
                 if conditional == True:
-                    line_number = int(current_line[5]) - 1
+                    line_number = int(current_line[5])
                 
             case "GOSUB":
                 if len(current_line) != 2:
@@ -139,17 +106,22 @@ def interpret(lines, starting_line = 1):
                 new_line_number = int(current_line[1])
                 if (new_line_number >= len(code) or new_line_number < 1):
                     Helper.error()
-
-                interpret(lines, new_line_number)
+                interpret(lines, new_line_number, stack + 1)
 
             case "RETURN":
+                if stack == 0:
+                    Helper.error()
                 return
             
             case "END":
+                if stack != 0:
+                    Helper.error()
                 return
             
             case ".":
-                SystemExit
+                if stack != 0:
+                    Helper.error()
+                exit()
 
             case _:
                 Helper.error()
