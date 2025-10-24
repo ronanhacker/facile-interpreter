@@ -85,7 +85,7 @@ def interpret(lines, starting_line = 1, stack = 0):
                 value_one = VariablesTest.get_value(current_line[1], line_number)
                 value_two = HelperTest.get_arg_value(current_line[2], line_number)
                 if value_two == 0:
-                    HelperTest.error("div by 0", current_line[2], line_number, current_line[1])
+                    HelperTest.error("div by zero", current_line[2], line_number, current_line[1])
                 VariablesTest.set_value(current_line[1], (value_one // value_two), line_number)
 
             case "GOTO":

@@ -6,31 +6,31 @@ def error(error_code=None, input=None, line_number=None, second_code=None):
     else:
         print("Error:")
     match error_code:
-        case "no period":
+        case "no period": #
             print(f"The final line of the program must be a period.")
-        case "infinite recursion":
+        case "infinite recursion": #
             print(f"The program has terminated after entering more than twenty recursive GOSUB statements.\nRemember to terminate GOSUB with RETURN.")
-        case "invalid operator":
+        case "invalid operator":#
             print(f"{input} is not a valid operator in an IF statement.\nValid operators: =, <>, <, >, <=, >=")
-        case "invalid input":
+        case "invalid input":#
             print(f"{input} is not a recognized command.\nMake sure the command is spelled correctly and all letters are capitalized.")
-        case "end in stack":
+        case "end in stack":#
             print(f"Program was terminated with {input} while still within a GOSUB statement.\nExit the GOSUB with RETURN before terminating the program.")
-        case "invalid return":
+        case "invalid return":#
             print(f"A return was encountered outside of a GOSUB statement.\nTry terminating the program with END before entering the GOSUB.")
-        case "no then":
+        case "no then":#
             print(f"Fourth parameter of IF must be THEN.\nIt is currently {input}.")
-        case "div by zero":
+        case "div by zero":#
             print(f"Cannot divide {second_code} by {input}.\n{input} is equal to zero.")
-        case "invalid jump":
+        case "invalid jump":#
             print(f"Cannot jump to line {input}.\nProgram is of length {second_code}.")
-        case "line not int":
+        case "line not int":#
             print(f"Line numbers in {second_code} must be integers.\n{input} is not a valid line number.")
         case "no file":
             print("Input a Facile file to interpret.")
-        case "file not found":
+        case "file not found":#
             print(f"The file {input} was not found.\nMake sure your file is in the correct directory.")
-        case "param error":
+        case "param error":#
             match second_code:
                 case "add":
                     func_name = "ADD"
@@ -79,11 +79,11 @@ def error(error_code=None, input=None, line_number=None, second_code=None):
                 print(f"The {func_name} function takes {params} parameter.\nIt is currently receiving {input - 1} parameters.")
             else:
                 print(f"The {func_name} function takes {params} parameter.\nIt is currently receiving {input - 1} parameter.")
-        case "var not int":
+        case "var not int":#
             print(f"Cannot set variable to value {input}.\nAll variables must be set to integer values.")
-        case "uninit var":
+        case "uninit var":#
             print(f"The variable {input} has not been initiaized.\nAll variables must be initialized with a LET statement before being referenced.")
-        case "unreal var":
+        case "unreal var":#
             print(f"The variable {input} does not exist.\nRecall that all variables are uppercase letters A-Z.")
         case _:
             print("ERROR.")
