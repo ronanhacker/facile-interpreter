@@ -17,7 +17,7 @@ done
 if [ $errorsstill -gt 1 ]; then
     echo "There are $errorsstill tests that still return 'ERROR.'"
 elif [ $errorsstill -eq 1 ]; then
-    echo "There is 1 test that still returns 'Error.'"
+    echo "There is 1 test that still returns 'ERROR.'"
 else
-    echo "No tests still return 'Error!'"
+    echo "No tests still return 'ERROR!'"
 fi
