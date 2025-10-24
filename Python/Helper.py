@@ -1,9 +1,17 @@
+import Variables
+
 def error():
     print("ERROR.")
-    SystemExit
+    exit()
 
 def str_is_int(string):
     try:
-        return int(string)
+        new = int(string)
+        return True
     except ValueError:
         return False
+
+def get_arg_value(string):
+    if str_is_int(string):
+        return int(string)
+    return Variables.get_value(string)
