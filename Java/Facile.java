@@ -127,10 +127,13 @@ public class Facile {
                     v1 = variables[Helper.getLetter(args[1])];
                     
                     if(Helper.stringIsInt(args[2])){
-                        v1.set(Integer.toString(v1.getInt() / Integer.parseInt(args[2])));
+                        int arg2 = Integer.parseInt(args[2]);
+                        if(arg2 ==0) Helper.error();
+                        v1.set(Integer.toString(v1.getInt() / arg2));
                     }
                     else{
                         v2 = variables[Helper.getLetter(args[2])];
+                        if(v2.getInt() ==0) Helper.error();
                         v1.set(Integer.toString(v1.getInt() / v2.getInt()));
                     }
 
