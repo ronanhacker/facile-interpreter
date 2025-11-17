@@ -1,6 +1,0 @@
-LET A 4
-LET B 6
-ADD A B
-print A
-END
-.

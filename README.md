@@ -1,2 +1,0 @@
-# facile-interpreter
-Facile interpreter :(
